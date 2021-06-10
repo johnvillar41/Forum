@@ -1,3 +1,5 @@
+using Forum.Interface;
+using Forum.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,7 +25,10 @@ namespace Forum
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();            
+            services.AddControllersWithViews();
+            services.AddSingleton<IForum, ForumRepository>();
+            services.AddSingleton<IPost, PostRepository>();
+            services.AddSingleton<IUser, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
