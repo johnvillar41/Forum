@@ -1,4 +1,4 @@
-﻿namespace Forum.Data.Models
+﻿namespace Forum.DataModels
 {
     public enum UserType
     {

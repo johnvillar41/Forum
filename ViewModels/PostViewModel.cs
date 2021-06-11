@@ -1,4 +1,4 @@
-﻿using Forum.Data.Models;
+﻿using Forum.DataModels;
 
 namespace Forum.ViewModels
 {

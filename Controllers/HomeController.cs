@@ -1,11 +1,9 @@
-﻿using Forum.Models;
+﻿using Forum.DataModels;
+using Forum.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Forum.Controllers
 {
@@ -20,18 +18,20 @@ namespace Forum.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var post = new PostModel
+            {
+                Id = 1,
+                Content = "Contents",
+                DateCreated = DateTime.Now,
+                PostType = PostType.Post,
+                Title = "Title"
+            };
+            return View(post);
         }
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        }       
     }
 }

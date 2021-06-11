@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Forum.Data.Models
+namespace Forum.DataModels
 {
     public enum PostType
     {

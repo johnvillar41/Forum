@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Forum.Data.Models
+namespace Forum.DataModels
 {
     public class ForumModel
     {

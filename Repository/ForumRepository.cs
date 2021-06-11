@@ -1,4 +1,4 @@
-﻿using Forum.Data.Models;
+﻿using Forum.DataModels;
 using Forum.Interface;
 using System.Collections.Generic;
 using System.Threading.Tasks;
