@@ -14,7 +14,7 @@ namespace Forum.Repository
         {
             using SqlConnection connection = new SqlConnection(ConnectionString.CONNECTION_STRING);
             await connection.OpenAsync();
-            var queryString = "INSERT INTO ForumTable(Title,PostContent,DateCreated,PostType)" +
+            var queryString = "INSERT INTO PostTable(Title,PostContent,DateCreated,PostType)" +
                 "VALUES(@title,@postContent,@date,@postType)";
             using SqlCommand command = new SqlCommand(queryString, connection);
             command.Parameters.AddWithValue("@title", newPost.Title);
@@ -32,7 +32,6 @@ namespace Forum.Repository
             command.Parameters.AddWithValue("@postId", postId);
             await command.ExecuteNonQueryAsync();
         }
-
         public async Task<IEnumerable<PostViewModel>> FetchAllPostsInForum(int forumId)
         {
             List<PostViewModel> posts = new List<PostViewModel>();
@@ -64,9 +63,16 @@ namespace Forum.Repository
             }
             return posts;
         }
-        public Task ModifyPost(int postId, bool isPostOwnedByUserLoggedIn)
+        public async Task ModifyPost(PostModel post, bool isPostOwnedByUserLoggedIn)
         {
-            throw new System.NotImplementedException();
+            using SqlConnection connection = new SqlConnection(ConnectionString.CONNECTION_STRING);
+            await connection.OpenAsync();
+            var queryString = "UPDATE PostTable SET Title=@title, PostContent = @content WHERE PostTable.PostId = @postID";
+            using SqlCommand command = new SqlCommand(queryString, connection);
+            command.Parameters.AddWithValue("@title", post.Title);
+            command.Parameters.AddWithValue("@content", post.Content);
+            command.Parameters.AddWithValue("@postID", post.Id);
+            await command.ExecuteNonQueryAsync();
         }
     }
 }
