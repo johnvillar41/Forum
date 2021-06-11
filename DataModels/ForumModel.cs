@@ -10,8 +10,6 @@ namespace Forum.Data.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }
-        public string ImageUrl { get; set; }
-        public IEnumerable<PostModel> Posts { get; set; }
-        public UserModel User { get; set; }
+        public string ImageUrl { get; set; }      
     }
 }
