@@ -51,19 +51,19 @@ namespace Forum.Repository
             {
                 var post = new PostViewModel
                 {
-                    Username = reader["UserTable.Username"].ToString(),
-                    Fullname = reader["UserTable.Fullname"].ToString(),
+                    Username = reader["Username"].ToString(),
+                    Fullname = reader["Fullname"].ToString(),
                     Post = new PostModel
                     {
-                        Id = int.Parse(reader["PostTable.PostId"].ToString()),
-                        Title = reader["PostTable.Title"].ToString(),
-                        Content = reader["PostTable.PostContent"].ToString(),
-                        DateCreated = DateTime.Parse(reader["PostTable.DateCreated"].ToString())
+                        Id = int.Parse(reader["PostId"].ToString()),
+                        Title = reader["Title"].ToString(),
+                        Content = reader["PostContent"].ToString(),
+                        DateCreated = DateTime.Parse(reader["DateCreated"].ToString())
                     }
                 };
-                if (reader["UserTable.UserType"].ToString().Equals(nameof(UserType.Administrator)))
+                if (reader["UserType"].ToString().Equals(nameof(UserType.Administrator)))
                     post.UserType = UserType.Administrator;
-                if (reader["UserTable.UserType"].ToString().Equals(nameof(UserType.User)))
+                if (reader["UserType"].ToString().Equals(nameof(UserType.User)))
                     post.UserType = UserType.User;
                 posts.Add(post);
             }

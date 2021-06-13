@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Forum.ViewModels.PostViewModel>
+<table class="table">
+
+    @foreach (var post in Model)
+    {
+    <tbody>
+        <tr>
+            @post.Post.Title
+        </tr>
+
+        <tr>
+            @post.Fullname
+        </tr>
+    </tbody>
+    }
+</table>
