@@ -15,16 +15,27 @@ namespace Forum.Repository
         {
             _configuration = configuration;
         }
-        public Task CreateForm(ForumModel newForum)
+        public async Task CreateForm(ForumModel newForum)
         {
-            throw new System.NotImplementedException();
+            using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
+            await connection.OpenAsync();
+            var queryString = "INSERT INTO ForumTable(Title,Description,DateCreated,ImageUrl) VALUES(@title,@description,@date,@imageUrl)";
+            using SqlCommand command = new SqlCommand(queryString, connection);
+            command.Parameters.AddWithValue("@title", newForum.Title);
+            command.Parameters.AddWithValue("@description", newForum.Description);
+            command.Parameters.AddWithValue("@date", newForum.DateCreated);
+            command.Parameters.AddWithValue("@imageUrl", newForum.ImageUrl);
+            await command.ExecuteNonQueryAsync();
         }
-
-        public Task DeleteForum(int forumId)
+        public async Task DeleteForum(int forumId)
         {
-            throw new System.NotImplementedException();
+            using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
+            await connection.OpenAsync();
+            var queryString = "DELETE FROM ForumTable WHERE ForumID = @forumID";
+            using SqlCommand command = new SqlCommand(queryString, connection);
+            command.Parameters.AddWithValue("@forumID", forumId);
+            await command.ExecuteNonQueryAsync();
         }
-
         public async Task<IEnumerable<ForumModel>> FetchAllForums()
         {
             List<ForumModel> forums = new List<ForumModel>();
@@ -45,11 +56,6 @@ namespace Forum.Repository
                 });
             }
             return forums;
-        }
-
-        public Task<IEnumerable<ForumModel>> FetchForumsByUser()
-        {
-            throw new System.NotImplementedException();
-        }
+        }        
     }
 }

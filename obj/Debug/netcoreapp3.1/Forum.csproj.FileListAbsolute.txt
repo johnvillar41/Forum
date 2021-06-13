@@ -13,7 +13,6 @@ C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.TagHelpers.out
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.RazorCoreGenerate.cache
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
-C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
@@ -22,7 +21,6 @@ C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.RazorTargetAss
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.RazorTargetAssemblyInfo.cs
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.dll
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.pdb
-C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.csprojAssemblyReference.cache
 C:\Users\Villar\Desktop\Forum\Forum\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\Villar\Desktop\Forum\Forum\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Villar\Desktop\Forum\Forum\bin\Debug\netcoreapp3.1\Forum.exe

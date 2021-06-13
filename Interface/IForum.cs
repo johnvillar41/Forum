@@ -6,8 +6,7 @@ namespace Forum.Interface
 {
     public interface IForum
     {
-        Task<IEnumerable<ForumModel>> FetchAllForums();
-        Task<IEnumerable<ForumModel>> FetchForumsByUser();
+        Task<IEnumerable<ForumModel>> FetchAllForums();       
         Task CreateForm(ForumModel newForum);
         Task DeleteForum(int forumId);
     }
