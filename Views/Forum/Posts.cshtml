@@ -1,15 +1,16 @@
 ﻿@model IEnumerable<Forum.ViewModels.PostViewModel>
-<table class="table">
-    @foreach (var post in Model)
-    {
-    <tbody>
-        <tr>
-            @post.Post.Title
-        </tr>
 
-        <tr>
-            @post.Fullname
-        </tr>
-    </tbody>
-    }
-</table>
+<div class="container">
+    <div class="col-6">
+        @foreach(var post in Model)
+            {
+                <div class="row">
+                    <div class="card">                        
+                        <p>@post.Fullname</p>
+                        <p>@post.Post.Content</p>
+                        <p>@post.Post.PostType</p>
+                    </div>
+                </div>
+            }
+    </div>
+</div>

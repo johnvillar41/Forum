@@ -1,27 +1,28 @@
 ﻿@model IEnumerable<Forum.DataModels.ForumModel>
-
-<table class="table table-hover table-dark">
-    <thead>
-        <tr>
-            <td>Title</td>
-            <td>Description</td>
-            <td>Id</td>
-            <td>ImageUrl</td>
-            <td>Action</td>
-        </tr>
-    </thead>
-    @foreach (var forum in Model)
-    {
-        <tbody>
-            <tr>               
-                <td>@forum.Title</td>
-                <td>@forum.Description</td>
-                <td>@forum.Id</td>
-                <td>@forum.ImageUrl</td>                
-                <td><a class="btn btn-success" asp-controller="Forum" asp-action="Posts" asp-route-id="@forum.Id">View Posts</a></td>                
+<h3>Forums</h3>
+<div class="card" style="padding:1rem;">
+    <table class="table table-hover table-light">
+        <thead>
+            <tr>
+                <td>Title</td>
+                <td>Description</td>
+                <td>Id</td>
+                <td>ImageUrl</td>
+                <td>Action</td>
             </tr>
+        </thead>
+        @foreach (var forum in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@forum.Title</td>
+                    <td>@forum.Description</td>
+                    <td>@forum.Id</td>
+                    <td>@forum.ImageUrl</td>
+                    <td><a class="btn btn-outline-primary" asp-controller="Forum" asp-action="Posts" asp-route-id="@forum.Id">View Posts</a></td>
+                </tr>
 
-        </tbody>
-    }
-
-</table>
+            </tbody>
+        }
+    </table>
+</div>
