@@ -1,6 +1,7 @@
 ﻿using Forum.DataModels;
 using Forum.Interface;
 using Forum.ViewModels;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -10,9 +11,14 @@ namespace Forum.Repository
 {
     public class PostRepository : IPost
     {
+        private readonly IConfiguration _configuration;
+        public PostRepository(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public async Task CreateNewPostInForum(PostModel newPost, int forumId)
         {
-            using SqlConnection connection = new SqlConnection(ConnectionString.CONNECTION_STRING);
+            using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
             await connection.OpenAsync();
             var queryString = "INSERT INTO PostTable(Title,PostContent,DateCreated,PostType)" +
                 "VALUES(@title,@postContent,@date,@postType)";
@@ -25,7 +31,7 @@ namespace Forum.Repository
         }
         public async Task DeletePost(int postId)
         {
-            using SqlConnection connection = new SqlConnection(ConnectionString.CONNECTION_STRING);
+            using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
             await connection.OpenAsync();
             var queryString = "DELETE FROM PostTable WHERE PostId = @postId";
             using SqlCommand command = new SqlCommand(queryString, connection);
@@ -35,7 +41,7 @@ namespace Forum.Repository
         public async Task<IEnumerable<PostViewModel>> FetchAllPostsInForum(int forumId)
         {
             List<PostViewModel> posts = new List<PostViewModel>();
-            using SqlConnection connection = new SqlConnection(ConnectionString.CONNECTION_STRING);
+            using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
             await connection.OpenAsync();
             var queryString = "SELECT UserTable.Fullname,UserTable.Username,UserTable.UserType,PostTable.PostId,PostTable.Title,PostTable.PostContent,PostTable.DateCreated FROM UserTable INNER JOIN ForumPosts ON UserTable.UserId = ForumPosts.UserId INNER JOIN PostTable ON PostTable.PostId = ForumPosts.PostId WHERE ForumPosts.ForumId = @forumID";
             using SqlCommand command = new SqlCommand(queryString, connection);
@@ -65,7 +71,7 @@ namespace Forum.Repository
         }
         public async Task ModifyPost(PostModel post, bool isPostOwnedByUserLoggedIn)
         {
-            using SqlConnection connection = new SqlConnection(ConnectionString.CONNECTION_STRING);
+            using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
             await connection.OpenAsync();
             var queryString = "UPDATE PostTable SET Title=@title, PostContent = @content WHERE PostTable.PostId = @postID";
             using SqlCommand command = new SqlCommand(queryString, connection);

@@ -29,6 +29,7 @@ namespace Forum
             services.AddSingleton<IForum, ForumRepository>();
             services.AddSingleton<IPost, PostRepository>();
             services.AddSingleton<IUser, UserRepository>();
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

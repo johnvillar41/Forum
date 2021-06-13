@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Forum.DataModels.ForumModel>
+<table class="table">
+    @foreach (var forum in Model)
+    {
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>@forum.Title</td>
+                <td>@forum.Description</td>
+                <td>@forum.Id</td>
+                <td>@forum.ImageUrl</td>                
+            </tr>
+
+        </tbody>
+    }
+
+</table>

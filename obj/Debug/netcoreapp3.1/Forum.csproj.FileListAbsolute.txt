@@ -357,3 +357,5 @@ C:\Users\Villar\Desktop\Forum\Forum\bin\Debug\netcoreapp3.1\runtimes\win\lib\net
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.Views.pdb
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.csproj.CopyComplete
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.genruntimeconfig.cache
+C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Forum\Index.cshtml.g.cs
+C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
