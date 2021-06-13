@@ -18,7 +18,7 @@ namespace Forum.Controllers
             var forums = await _forumRepository.FetchAllForums();           
             return View(forums);
         }
-        public async Task<IActionResult> Forum(int id)
+        public async Task<IActionResult> Posts(int id)
         {
             var posts = await _postRepository.FetchAllPostsInForum(id);
             return View("Posts",posts);
