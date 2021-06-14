@@ -11,6 +11,6 @@ namespace Forum.DataModels
         public string Content { get; set; }
         public DateTime DateCreated { get; set; }
         public PostType PostType { get; set; }
-        public IEnumerable<PostModel> PostReplies { get; set; }
+        public IEnumerable<ReplyModel> PostReplies { get; set; }
     }
 }

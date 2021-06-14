@@ -7,6 +7,6 @@
         public string Password { get; set; }
         public string Fullname { get; set; }
         public string ImageUrl { get; set; }
-        public UserType MyProperty { get; set; }
+        public UserType UserType { get; set; }
     }
 }

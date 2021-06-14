@@ -31,6 +31,7 @@ namespace Forum.Repository
         {
             List<ReplyModel> replies = new List<ReplyModel>();
             using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
+            await connection.OpenAsync();
             var queryString = "SELECT * FROM ReplyTable WHERE PostID = @postID";
             using SqlCommand command = new SqlCommand(queryString, connection);
             command.Parameters.AddWithValue("@postID", postID);

@@ -61,7 +61,7 @@ namespace Forum.Repository
                         Title = reader["Title"].ToString(),
                         Content = reader["PostContent"].ToString(),
                         DateCreated = DateTime.Parse(reader["DateCreated"].ToString()),
-                        PostReplies = (IEnumerable<PostModel>)await _replyRepository.FetchAllRepliesInAPost(int.Parse(reader["PostId"].ToString()))
+                        PostReplies = await _replyRepository.FetchAllRepliesInAPost(int.Parse(reader["PostId"].ToString()))
                     }
                 };
                 if (reader["UserType"].ToString().Equals(nameof(UserType.Administrator)))
