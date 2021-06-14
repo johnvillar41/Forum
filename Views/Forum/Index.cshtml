@@ -6,8 +6,7 @@
             <tr>
                 <td>Title</td>
                 <td>Description</td>
-                <td>Id</td>
-                <td>ImageUrl</td>
+                <td>Icon</td>
                 <td>Action</td>
             </tr>
         </thead>
@@ -17,8 +16,7 @@
                 <tr>
                     <td>@forum.Title</td>
                     <td>@forum.Description</td>
-                    <td>@forum.Id</td>
-                    <td>@forum.ImageUrl</td>
+                    <td><img src="@forum.ImageUrl" style="height:50px;width:50px;" /></td>
                     <td><a class="btn btn-outline-primary" asp-controller="Forum" asp-action="Posts" asp-route-id="@forum.Id">View Posts</a></td>
                 </tr>
 
