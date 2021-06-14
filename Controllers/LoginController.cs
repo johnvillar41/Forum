@@ -22,16 +22,16 @@ namespace Forum.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserModel loginUser)
         {
-            if (loginUser == null) return View();
+            if (loginUser == null) return RedirectToAction("Index");
             else
             {
                 var isLoginValid = await _loginRepository.CheckIfLoggedInUserExist(loginUser);
                 if (isLoginValid)
                 {
-                    return View("Home");
+                    return RedirectToAction("Index","Forum");
                 }
             }
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
