@@ -29,6 +29,7 @@ namespace Forum
             services.AddSingleton<IForum, ForumRepository>();
             services.AddSingleton<IPost, PostRepository>();
             services.AddSingleton<IUser, UserRepository>();
+            services.AddSingleton<ILogin, LoginRepository>();
             services.AddSingleton<IConfiguration>(Configuration);
         }
 

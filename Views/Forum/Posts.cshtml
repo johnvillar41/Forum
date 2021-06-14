@@ -2,15 +2,29 @@
 
 <div class="container">
     <div class="col-6">
-        @foreach(var post in Model)
-            {
-                <div class="row">
-                    <div class="card">                        
-                        <p>@post.Fullname</p>
-                        <p>@post.Post.Content</p>
-                        <p>@post.Post.PostType</p>
-                    </div>
+        @foreach (var post in Model)
+        {
+            <div class="row">
+                <div class="card">
+                    <p>@post.Fullname</p>
+                    <p>@post.Post.Content</p>
+                    <p>@post.Post.PostType</p>
                 </div>
+            </div>
+            @if (post.Post.PostReplies == null)
+            {
+                <h2>Empty Posts! Try Creating one!<a asp-action="Create">Create Post</a></h2>
+                return;
             }
+            <ul class="list-group list-group-flush">
+                @foreach (var comment in post.Post.PostReplies)
+                {
+                    <li class="list-group-item">@comment.Content</li>
+
+                    <li class="list-group-item">@comment.DateCreated</li>
+
+                }
+            </ul>
+        }
     </div>
 </div>
