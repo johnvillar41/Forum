@@ -12,8 +12,10 @@ namespace Forum.Repository
     public class PostRepository : IPost
     {
         private readonly IConfiguration _configuration;
-        public PostRepository(IConfiguration configuration)
+        private readonly IReply _replyRepository;
+        public PostRepository(IConfiguration configuration,IReply replyRepository)
         {
+            _replyRepository = replyRepository;
             _configuration = configuration;
         }
         public async Task CreateNewPostInForum(PostModel newPost, int forumId)
@@ -58,7 +60,8 @@ namespace Forum.Repository
                         Id = int.Parse(reader["PostId"].ToString()),
                         Title = reader["Title"].ToString(),
                         Content = reader["PostContent"].ToString(),
-                        DateCreated = DateTime.Parse(reader["DateCreated"].ToString())
+                        DateCreated = DateTime.Parse(reader["DateCreated"].ToString()),
+                        PostReplies = (IEnumerable<PostModel>)await _replyRepository.FetchAllRepliesInAPost(int.Parse(reader["PostId"].ToString()))
                     }
                 };
                 if (reader["UserType"].ToString().Equals(nameof(UserType.Administrator)))
@@ -79,6 +82,6 @@ namespace Forum.Repository
             command.Parameters.AddWithValue("@content", post.Content);
             command.Parameters.AddWithValue("@postID", post.Id);
             await command.ExecuteNonQueryAsync();
-        }
+        }        
     }
 }

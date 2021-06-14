@@ -16,15 +16,22 @@
                 <h2>Empty Posts! Try Creating one!<a asp-action="Create">Create Post</a></h2>
                 return;
             }
-            <ul class="list-group list-group-flush">
-                @foreach (var comment in post.Post.PostReplies)
-                {
-                    <li class="list-group-item">@comment.Content</li>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#commentCollapse" aria-expanded="false" aria-controls="collapseExample">
+                View Comments
+            </button>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var comment in post.Post.PostReplies)
+                        {
+                            <li class="list-group-item">@comment.Content</li>
 
-                    <li class="list-group-item">@comment.DateCreated</li>
+                            <li class="list-group-item">@comment.DateCreated</li>
 
-                }
-            </ul>
+                        }
+                    </ul>
+                </div>
+            </div>            
         }
     </div>
 </div>

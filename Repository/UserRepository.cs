@@ -18,6 +18,11 @@ namespace Forum.Repository
             throw new System.NotImplementedException();
         }
 
+        public async Task<UserModel> FetchUserInGivenPost(int postId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task ModifyUser(int userId, UserModel updatedUser)
         {
             throw new System.NotImplementedException();

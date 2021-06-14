@@ -9,5 +9,6 @@ namespace Forum.Interface
         Task<IEnumerable<UserModel>> FetchAllUsers();
         Task ModifyUser(int userId, UserModel updatedUser);
         Task RegisterUser(UserModel newUser);
+        Task<UserModel> FetchUserInGivenPost(int postId);
     }
 }
