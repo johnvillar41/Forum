@@ -22,7 +22,7 @@ namespace Forum.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserModel loginUser)
         {
-            if (loginUser == null) return RedirectToAction("Index");
+            if (string.IsNullOrWhiteSpace(loginUser.Username) || string.IsNullOrWhiteSpace(loginUser.Password)) return RedirectToAction("Index");
             else
             {
                 var isLoginValid = await _loginRepository.CheckIfLoggedInUserExist(loginUser);
