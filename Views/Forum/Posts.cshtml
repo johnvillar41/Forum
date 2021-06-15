@@ -1,37 +1,43 @@
 ﻿@model IEnumerable<Forum.ViewModels.PostViewModel>
 
-<div class="container">
-    <div class="col-6">
-        @foreach (var post in Model)
-        {
-            <div class="row">
-                <div class="card">
-                    <p>@post.Fullname</p>
+<div class="container text-dark">
+    <div class="card mb-1">
+        <div class="col-12 p-5">
+            <h2><bold>Posts</bold></h2>
+            <h3>Total Number of Posts: @Model.Count()</h3>
+        </div>
+    </div>
+    @foreach (var post in Model)
+    {
+        <div class="card mb-2">
+            <div class="col-12 p-5">
+
+                <div class="row">
+                    <p>Created By: @post.Fullname</p>
                     <p>@post.Post.Content</p>
                     <p>@post.Post.PostType</p>
                 </div>
-            </div>
-            @if (post.Post.PostReplies == null)
-            {
-                <h2>Empty Posts! Try Creating one!<a asp-action="Create">Create Post</a></h2>
-                return;
-            }
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#commentCollapse" aria-expanded="false" aria-controls="collapseExample">
-                View Comments
-            </button>
-            <div class="collapse" id="commentCollapse">
-                <div class="card card-body">
-                    <ul class="list-group list-group-flush">
-                        @foreach (var comment in post.Post.PostReplies)
-                        {
-                            <li class="list-group-item">@comment.ReplyContent</li>
-
-                            <li class="list-group-item">@comment.DateCreated</li>
-
-                        }
-                    </ul>
+                @if (post.Post.PostReplies == null)
+                {
+                    <h2>Empty Posts! Try Creating one!<a asp-action="Create">Create Post</a></h2>
+                    return;
+                }
+                <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#commentCollapse_@post.Post.Id" aria-expanded="false" aria-controls="collapseExample">
+                    View Comments
+                </button>
+                <div class="collapse" id="commentCollapse_@post.Post.Id">
+                    @foreach (var comment in post.Post.PostReplies)
+                    {
+                        <div class="card card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">@comment.ReplyContent</li>
+                                <li class="list-group-item">@comment.DateCreated</li>
+                                <li class="list-group-item">@comment.User.Fullname</li>
+                            </ul>
+                        </div>
+                    }
                 </div>
-            </div>            
-        }
-    </div>
+            </div>
+        </div>
+    }
 </div>
