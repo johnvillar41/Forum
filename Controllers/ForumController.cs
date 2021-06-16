@@ -40,21 +40,21 @@ namespace Forum.Controllers
             {
                 newForum.DateCreated = DateTime.Now;
                 newForum.ImageUrl = $"images/{newForum.FileImage.FileName}";
-                SaveImage(newForum.FileImage, newForum.FileImage.FileName);
+                SaveImage(newForum.FileImage);
                 await _forumRepository.CreateForum(newForum);
                 return RedirectToAction("Index");
             }
             return View();
         }
-        private async void SaveImage(IFormFile file,string filename)
+        private async void SaveImage(IFormFile file)
         {
             var fileExtension = Path.GetExtension(file.FileName);
-            if(fileExtension.Equals(".JPG") || fileExtension.Equals(".PNG"))
+            if(fileExtension.Equals(".JPG") || fileExtension.Equals(".PNG") || fileExtension.Equals(".png") || fileExtension.Equals(".jpg"))
             {
                 var saveImage = Path.Combine(_webHostEnvironment.WebRootPath, "images", file.FileName);
                 var stream = new FileStream(saveImage, FileMode.Create);
                 await file.CopyToAsync(stream);               
-            }                  
+            }
         }
     }
 }
