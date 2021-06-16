@@ -10,6 +10,6 @@ namespace Forum.Interface
         Task<IEnumerable<PostViewModel>> FetchAllPostsInForum(int forumId);
         Task DeletePost(int postId);
         Task ModifyPost(PostModel post, bool isPostOwnedByUserLoggedIn);
-        Task CreateNewPostInForum(PostModel newPost, int forumId);
+        Task<int> CreateNewPost(PostModel newPost);
     }
 }

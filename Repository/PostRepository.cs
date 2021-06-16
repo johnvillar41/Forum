@@ -18,18 +18,23 @@ namespace Forum.Repository
             _replyRepository = replyRepository;
             _configuration = configuration;
         }
-        public async Task CreateNewPostInForum(PostModel newPost, int forumId)
+        public async Task<int> CreateNewPost(PostModel newPost)
         {
             using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
             await connection.OpenAsync();
-            var queryString = "INSERT INTO PostTable(Title,PostContent,DateCreated,PostType)" +
-                "VALUES(@title,@postContent,@date,@postType)";
+            var queryString = "INSERT INTO PostTable(Title,PostContent,DateCreated,PostType)VALUES(@title,@postContent,@date,@postType);" +
+                " SELECT PostId AS LastID FROM PostTable WHERE PostId = @@Identity;";
             using SqlCommand command = new SqlCommand(queryString, connection);
             command.Parameters.AddWithValue("@title", newPost.Title);
             command.Parameters.AddWithValue("@postContent", newPost.Content);
-            command.Parameters.AddWithValue("@date", newPost.DateCreated);
+            command.Parameters.AddWithValue("@date", DateTime.Now);
             command.Parameters.AddWithValue("@postType", newPost.PostType.ToString());
-            await command.ExecuteNonQueryAsync();
+            using SqlDataReader reader = await command.ExecuteReaderAsync();
+            if(await reader.ReadAsync())
+            {
+                return int.Parse(reader["LastID"].ToString());
+            }
+            return -1;
         }
         public async Task DeletePost(int postId)
         {
@@ -62,7 +67,8 @@ namespace Forum.Repository
                         Content = reader["PostContent"].ToString(),
                         DateCreated = DateTime.Parse(reader["DateCreated"].ToString()),
                         PostReplies = await _replyRepository.FetchAllRepliesInAPost(int.Parse(reader["PostId"].ToString()))
-                    }
+                    },
+                    ForumId = forumId
                 };
                 if (reader["UserType"].ToString().Equals(nameof(UserType.Administrator)))
                     post.UserType = UserType.Administrator;

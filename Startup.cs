@@ -31,6 +31,7 @@ namespace Forum
             services.AddSingleton<IUser, UserRepository>();
             services.AddSingleton<ILogin, LoginRepository>();
             services.AddSingleton<IReply, ReplyRepository>();
+            services.AddSingleton<IForumPost, ForumPostRepository>();
             services.AddSingleton<IConfiguration>(Configuration);
         }
 

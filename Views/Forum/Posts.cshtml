@@ -9,9 +9,12 @@
                     <h3>Total Number of Posts: @Model.Count()</h3>
                 </div>
                 <div class="col-lg-2 col-sm-12">
-                    <a asp-action="CreatePost" asp-controller="Posts" class="btn btn-outline-success">Create New Post</a>
+                    @if (Model.FirstOrDefault() != null)
+                    {
+                        <a asp-action="Index" asp-controller="Posts" asp-route-id="@Model.FirstOrDefault().ForumId" class="btn btn-outline-success">Create New Post</a>
+                    }
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
     @foreach (var post in Model)
