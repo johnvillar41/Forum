@@ -15,7 +15,7 @@ namespace Forum.Repository
         {
             _configuration = configuration;
         }
-        public async Task CreateForm(ForumModel newForum)
+        public async Task CreateForum(ForumModel newForum)
         {
             using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
             await connection.OpenAsync();

@@ -24,6 +24,7 @@
 
                 <div class="row">
                     <p>Created By: @post.Fullname</p>
+                    <p>Title: @post.Post.Title</p>
                     <p>@post.Post.Content</p>
                     <p>@post.Post.PostType</p>
                 </div>
@@ -36,6 +37,11 @@
                     View Comments
                 </button>
                 <div class="collapse" id="commentCollapse_@post.Post.Id">
+                    @if (post.Post.PostReplies.Count() == 0)
+                    {
+                        <h4>No Comments Found!</h4>
+                        return;
+                    }
                     @foreach (var comment in post.Post.PostReplies)
                     {
                         <div class="card card-body">
