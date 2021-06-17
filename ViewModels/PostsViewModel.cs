@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Forum.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,5 +10,6 @@ namespace Forum.ViewModels
     {
         public IEnumerable<PostViewModel> Posts { get; set; }
         public int ForumId { get; set; }
+        public ForumModel Forum { get; set; }        
     }
 }

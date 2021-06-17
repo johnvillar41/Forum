@@ -56,6 +56,28 @@ namespace Forum.Repository
                 });
             }
             return forums;
-        }        
+        }
+
+        public async Task<ForumModel> FetchForum(int forumId)
+        {
+            using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
+            await connection.OpenAsync();
+            var queryString = "SELECT * FROM ForumTable WHERE ForumID=@forumId";
+            using SqlCommand command = new SqlCommand(queryString, connection);
+            command.Parameters.AddWithValue("@forumId", forumId);
+            using SqlDataReader reader = await command.ExecuteReaderAsync();
+            if(await reader.ReadAsync())
+            {
+                return new ForumModel
+                {
+                    Id = int.Parse(reader["ForumID"].ToString()),
+                    Title = reader["Title"].ToString(),
+                    Description = reader["Description"].ToString(),
+                    DateCreated = DateTime.Parse(reader["DateCreated"].ToString()),
+                    ImageUrl = reader["ImageUrl"].ToString()
+                };
+            }
+            return null;
+        }
     }
 }

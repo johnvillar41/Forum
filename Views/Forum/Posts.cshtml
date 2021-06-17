@@ -1,6 +1,14 @@
 ﻿@model Forum.ViewModels.PostsViewModel
-<div class="container text-dark">
+<div class="container text-dark">    
     <div class="col-12">
+        <div class="row">
+            <div class="card mb-2 p-3">
+                <h2><b>Posts on @Model.Forum.Title</b></h2>
+                <h2><b>Forum Id: @Model.Forum.Id</b></h2>
+                <img src="@Model.Forum.ImageUrl" class="img-thumbnail mb-2" style="height:50px;width:50px;">                
+            </div>
+        </div>
+        
         <div class="row">
             @foreach (var post in Model.Posts)
             {

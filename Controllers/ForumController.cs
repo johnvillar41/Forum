@@ -29,10 +29,12 @@ namespace Forum.Controllers
         public async Task<IActionResult> Posts(int id)
         {
             var posts = await _postRepository.FetchAllPostsInForum(id);
+            var forum = await _forumRepository.FetchForum(id);
             PostsViewModel postsViewModel = new PostsViewModel
             {
                 Posts = posts,
-                ForumId = id
+                ForumId = id,
+                Forum = forum
             };
             return View(postsViewModel);
         }

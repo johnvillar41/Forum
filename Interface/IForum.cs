@@ -9,5 +9,6 @@ namespace Forum.Interface
         Task<IEnumerable<ForumModel>> FetchAllForums();       
         Task CreateForum(ForumModel newForum);
         Task DeleteForum(int forumId);
+        Task<ForumModel> FetchForum(int forumId);
     }
 }
