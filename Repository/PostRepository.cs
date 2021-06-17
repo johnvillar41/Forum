@@ -18,17 +18,17 @@ namespace Forum.Repository
             _replyRepository = replyRepository;
             _configuration = configuration;
         }
-        public async Task<int> CreateNewPost(PostModel newPost)
+        public async Task<int> CreateNewPost(PostCreateViewModel newPost)
         {
             using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
             await connection.OpenAsync();
             var queryString = "INSERT INTO PostTable(Title,PostContent,DateCreated,PostType)VALUES(@title,@postContent,@date,@postType);" +
                 " SELECT PostId AS LastID FROM PostTable WHERE PostId = @@Identity;";
             using SqlCommand command = new SqlCommand(queryString, connection);
-            command.Parameters.AddWithValue("@title", newPost.Title);
-            command.Parameters.AddWithValue("@postContent", newPost.Content);
+            command.Parameters.AddWithValue("@title", newPost.Post.Title);
+            command.Parameters.AddWithValue("@postContent", newPost.Post.Content);
             command.Parameters.AddWithValue("@date", DateTime.Now);
-            command.Parameters.AddWithValue("@postType", newPost.PostType.ToString());
+            command.Parameters.AddWithValue("@postType", newPost.Post.PostType.ToString());
             using SqlDataReader reader = await command.ExecuteReaderAsync();
             if(await reader.ReadAsync())
             {

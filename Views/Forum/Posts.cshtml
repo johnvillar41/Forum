@@ -8,7 +8,7 @@
                 <img src="@Model.Forum.ImageUrl" class="img-thumbnail mb-2" style="height:50px;width:50px;">                
             </div>
         </div>
-        
+        <a asp-controller="Posts" asp-action="Index" class="btn btn-outline-success" asp-route-id="@Model.ForumId">Create new post</a>
         <div class="row">
             @foreach (var post in Model.Posts)
             {

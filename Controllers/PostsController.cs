@@ -1,5 +1,6 @@
 ﻿using Forum.DataModels;
 using Forum.Interface;
+using Forum.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,17 @@ namespace Forum.Controllers
             _postRepository = postRepository;
             _forumPostRepository = forumPostRepository;
         }
-        public IActionResult Index()
-        {
-            return View();
+        public IActionResult Index(int id)
+        {                       
+            var postCreateViewModel = new PostCreateViewModel
+            {
+                ForumId = id,
+                User = null                
+            };
+            return View(postCreateViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> CreatePost(PostModel newPost, int forumId)
+        public async Task<IActionResult> CreatePost(PostCreateViewModel newPost)
         {
             if (newPost != null)
             {
@@ -30,7 +36,7 @@ namespace Forum.Controllers
                 var forumPost = new ForumPostModel
                 {
                     PostId = postId,
-                    ForumId = 1,//TODO HARD CODED ID
+                    ForumId = newPost.ForumId,
                     UserId = 1 //TODO HARD CODED ID
                 };
                 await _forumPostRepository.AddNewForumPost(forumPost);

@@ -1,14 +1,15 @@
-﻿@model Forum.DataModels.PostModel
+﻿@model Forum.ViewModels.PostCreateViewModel
 <div class="card p-5 text-dark">
     <h2><bold>Create New Post</bold></h2>
+    <h2><bold>ForumName: @Model.ForumId</bold></h2>
     <form method="post" asp-action="CreatePost" asp-controller="Posts">        
         <div class="form-group">
-            <label asp-for="@Model.Title">Title</label>
-            <input type="text" class="form-control" asp-for="@Model.Title" />
+            <label asp-for="@Model.Post.Title">Title</label>
+            <input type="text" class="form-control" asp-for="@Model.Post.Title" />
         </div>
         <div class="form-group">
-            <label asp-for="@Model.Content">Content</label>
-            <textarea type="text" rows="10" class="form-control" asp-for="@Model.Content" ></textarea>
+            <label asp-for="@Model.Post.Content">Content</label>
+            <textarea type="text" rows="10" class="form-control" asp-for="@Model.Post.Content" ></textarea>
         </div>
         <div class="form-group mt-3">
             <input type="submit" class="btn btn-outline-success" value="Create Post"/>
