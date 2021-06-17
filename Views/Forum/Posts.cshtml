@@ -6,22 +6,37 @@
             {
                 <div class="card mb-3">
                     <div class="card-body">
-                        <p>@post.Post.DateCreated.</p>
-                        <p>@post.Post.Id</p>
-                        <p>@post.Post.Title</p>
-                        <p>@post.Post.Content</p>
-                        <p>@post.Post.PostType</p>
+                        <p><b>Date Created:</b>@post.Post.DateCreated.</p>
+                        <p><b>Post ID:</b>@post.Post.Id</p>
+                        <p><b>Title:</b>@post.Post.Title</p>
+                        <p><b>Content:</b>@post.Post.Content</p>
+                        <p><b>Post Type:</b>@post.Post.PostType</p>
                     </div>
-                    @foreach (var reply in post.Post.PostReplies)
-                    {
-                        <div class="card card-body m-3">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">@reply.ReplyContent</li>
-                                <li class="list-group-item">@reply.User.Fullname</li>
-                                <li class="list-group-item">@reply.DateCreated</li>
-                            </ul>
+                    <div class="card-footer">
+                        @if (post.Post.PostReplies.Count() == 0)
+                        {
+                            <h1>No Comments Found!</h1>
+                            return;
+                        }
+                        <a class="btn btn-primary mb-2" data-toggle="collapse" href="#collapseExample_@post.Post.Id" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            View Comments
+                        </a>
+                        <div class="collapse" id="collapseExample_@post.Post.Id">
+                            <div class="card card-body">
+                                <p>Total number of Comments: @post.Post.PostReplies.Count()</p>
+                                @foreach (var reply in post.Post.PostReplies)
+                                {
+                                    <div class="card card-body m-3">
+                                        <h6><b>Commented By: @reply.User.Fullname</b></h6>
+                                        <ul class="list-group list-group-flush mt-5">
+                                            <li class="list-group-item"><b>Comment:</b> @reply.ReplyContent</li>
+                                            <li class="list-group-item"><b>Date Created:</b> @reply.DateCreated</li>
+                                        </ul>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                    }
+                    </div>
                 </div>
             }
         </div>
