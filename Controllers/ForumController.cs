@@ -1,5 +1,6 @@
 ﻿using Forum.DataModels;
 using Forum.Interface;
+using Forum.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,12 @@ namespace Forum.Controllers
         public async Task<IActionResult> Posts(int id)
         {
             var posts = await _postRepository.FetchAllPostsInForum(id);
-            return View("Posts", posts);
+            PostsViewModel postsViewModel = new PostsViewModel
+            {
+                Posts = posts,
+                ForumId = id
+            };
+            return View(postsViewModel);
         }
         public IActionResult CreateForum()
         {
@@ -49,11 +55,11 @@ namespace Forum.Controllers
         private async void SaveImage(IFormFile file)
         {
             var fileExtension = Path.GetExtension(file.FileName);
-            if(fileExtension.Equals(".JPG") || fileExtension.Equals(".PNG") || fileExtension.Equals(".png") || fileExtension.Equals(".jpg"))
+            if (fileExtension.Equals(".JPG") || fileExtension.Equals(".PNG") || fileExtension.Equals(".png") || fileExtension.Equals(".jpg"))
             {
                 var saveImage = Path.Combine(_webHostEnvironment.WebRootPath, "images", file.FileName);
                 var stream = new FileStream(saveImage, FileMode.Create);
-                await file.CopyToAsync(stream);               
+                await file.CopyToAsync(stream);
             }
         }
     }

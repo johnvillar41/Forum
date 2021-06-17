@@ -1,59 +1,29 @@
-﻿@model IEnumerable<Forum.ViewModels.PostViewModel>
-
+﻿@model Forum.ViewModels.PostsViewModel
 <div class="container text-dark">
-    <div class="card mb-3">
-        <div class="col-12 p-5">
-            <div class="row">
-                <div class="col-lg-10 col-sm-12">
-                    <h2><bold>Posts</bold></h2>
-                    <h3>Total Number of Posts: @Model.Count()</h3>
-                </div>
-                <div class="col-lg-2 col-sm-12">
-                    @if (Model.FirstOrDefault() != null)
+    <div class="col-12">
+        <div class="row">
+            @foreach (var post in Model.Posts)
+            {
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p>@post.Post.DateCreated.</p>
+                        <p>@post.Post.Id</p>
+                        <p>@post.Post.Title</p>
+                        <p>@post.Post.Content</p>
+                        <p>@post.Post.PostType</p>
+                    </div>
+                    @foreach (var reply in post.Post.PostReplies)
                     {
-                        <a asp-action="Index" asp-controller="Posts" asp-route-id="@Model.FirstOrDefault().ForumId" class="btn btn-outline-success">Create New Post</a>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-    @foreach (var post in Model)
-    {
-        <div class="card mb-1">
-            <div class="col-12 p-5">
-
-                <div class="row">
-                    <p>Created By: @post.Fullname</p>
-                    <p>Title: @post.Post.Title</p>
-                    <p>@post.Post.Content</p>
-                    <p>@post.Post.PostType</p>
-                </div>
-                @if (post.Post.PostReplies == null)
-                {
-                    <h2>Empty Posts! Try Creating one!<a asp-action="Create">Create Post</a></h2>
-                    return;
-                }
-                <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#commentCollapse_@post.Post.Id" aria-expanded="false" aria-controls="collapseExample">
-                    View Comments
-                </button>
-                <div class="collapse" id="commentCollapse_@post.Post.Id">
-                    @if (post.Post.PostReplies.Count() == 0)
-                    {
-                        <h4>No Comments Found!</h4>
-                        return;
-                    }
-                    @foreach (var comment in post.Post.PostReplies)
-                    {
-                        <div class="card card-body">
+                        <div class="card card-body m-3">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">@comment.ReplyContent</li>
-                                <li class="list-group-item">@comment.DateCreated</li>
-                                <li class="list-group-item">@comment.User.Fullname</li>
+                                <li class="list-group-item">@reply.ReplyContent</li>
+                                <li class="list-group-item">@reply.User.Fullname</li>
+                                <li class="list-group-item">@reply.DateCreated</li>
                             </ul>
                         </div>
                     }
                 </div>
-            </div>
+            }
         </div>
-    }
+    </div>
 </div>

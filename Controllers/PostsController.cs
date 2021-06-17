@@ -12,7 +12,7 @@ namespace Forum.Controllers
     {
         private readonly IPost _postRepository;
         private readonly IForumPost _forumPostRepository;
-        public PostsController(IPost postRepository,IForumPost forumPostRepository)
+        public PostsController(IPost postRepository, IForumPost forumPostRepository)
         {
             _postRepository = postRepository;
             _forumPostRepository = forumPostRepository;
@@ -22,7 +22,7 @@ namespace Forum.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CreatePost(PostModel newPost,int forumId)
+        public async Task<IActionResult> CreatePost(PostModel newPost, int forumId)
         {
             if (newPost != null)
             {

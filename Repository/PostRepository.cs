@@ -53,7 +53,7 @@ namespace Forum.Repository
             var queryString = "SELECT UserTable.Fullname,UserTable.Username,UserTable.UserType,PostTable.PostId,PostTable.Title,PostTable.PostContent,PostTable.DateCreated FROM UserTable INNER JOIN ForumPosts ON UserTable.UserId = ForumPosts.UserId INNER JOIN PostTable ON PostTable.PostId = ForumPosts.PostId WHERE ForumPosts.ForumId = @forumID";
             using SqlCommand command = new SqlCommand(queryString, connection);
             command.Parameters.AddWithValue("@forumID", forumId);
-            using SqlDataReader reader = await command.ExecuteReaderAsync();
+            using SqlDataReader reader = await command.ExecuteReaderAsync();            
             while (await reader.ReadAsync())
             {
                 var post = new PostViewModel
@@ -67,13 +67,12 @@ namespace Forum.Repository
                         Content = reader["PostContent"].ToString(),
                         DateCreated = DateTime.Parse(reader["DateCreated"].ToString()),
                         PostReplies = await _replyRepository.FetchAllRepliesInAPost(int.Parse(reader["PostId"].ToString()))
-                    },
-                    ForumId = forumId
+                    },                    
                 };
                 if (reader["UserType"].ToString().Equals(nameof(UserType.Administrator)))
                     post.UserType = UserType.Administrator;
                 if (reader["UserType"].ToString().Equals(nameof(UserType.User)))
-                    post.UserType = UserType.User;
+                    post.UserType = UserType.User;                
                 posts.Add(post);
             }
             return posts;
