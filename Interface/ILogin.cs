@@ -9,5 +9,6 @@ namespace Forum.Interface
     public interface ILogin
     {
         Task<bool> CheckIfLoggedInUserExist(UserModel user);
+        Task<UserType?> CheckIfUserIdAdmin(string username);
     }
 }

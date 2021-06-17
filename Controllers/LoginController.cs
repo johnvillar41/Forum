@@ -1,5 +1,6 @@
 ﻿using Forum.DataModels;
 using Forum.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -28,10 +29,33 @@ namespace Forum.Controllers
                 var isLoginValid = await _loginRepository.CheckIfLoggedInUserExist(loginUser);
                 if (isLoginValid)
                 {
+                    var isAdmin = await _loginRepository.CheckIfUserIdAdmin(loginUser.Username);
+                    if (isAdmin.Equals(nameof(UserType.Administrator)))
+                    {
+                        SetCookie(loginUser.Username, UserType.Administrator.ToString());
+                    }
+                    if (isAdmin.Equals(nameof(UserType.User)))
+                    {
+                        SetCookie(loginUser.Username, UserType.User.ToString());
+                    }
                     return RedirectToAction("Index","Forum");
                 }
             }
             return RedirectToAction("Index");
+        }
+        public IActionResult Logout(string username)
+        {
+            RemoveCookie(username);
+            return RedirectToAction("Login");
+        }
+        private void SetCookie(string key,string value)
+        {
+            CookieOptions option = new CookieOptions();           
+            Response.Cookies.Append(key, value, option);
+        }
+        private void RemoveCookie(string key)
+        {
+            Response.Cookies.Delete(key);
         }
     }
 }

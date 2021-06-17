@@ -28,5 +28,22 @@ namespace Forum.Repository
             }
             return false;
         }       
+        public async Task<UserType?> CheckIfUserIdAdmin(string username)
+        {
+            using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
+            await connection.OpenAsync();
+            var queryString = "SELECT UserType FROM UserTable WHERE Username=@username ";
+            using SqlCommand command = new SqlCommand(queryString, connection);
+            command.Parameters.AddWithValue("@username", username);
+            using SqlDataReader reader = await command.ExecuteReaderAsync();
+            if(await reader.ReadAsync())
+            {
+                if (reader["UserType"].Equals(nameof(UserType.Administrator)))
+                    return UserType.Administrator;
+                if (reader["UserType"].Equals(nameof(UserType.User)))
+                    return UserType.User;
+            }
+            return null;
+        }
     }
 }
