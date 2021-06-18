@@ -50,17 +50,22 @@ namespace Forum.Controllers
             if (newForum != null)
             {
                 newForum.DateCreated = DateTime.Now;
-                newForum.ImageUrl = $"images/{newForum.FileImage.FileName}";
+                newForum.ImageUrl = $"/images/{newForum.FileImage.FileName}";
                 SaveImage(newForum.FileImage);
                 await _forumRepository.CreateForum(newForum);
                 return RedirectToAction("Index");
             }
             return View();
+        }        
+        public async Task<IActionResult> RemoveForum(int id)
+        {
+            await _forumRepository.DeleteForum(id);
+            return RedirectToAction("Index");
         }
         private async void SaveImage(IFormFile file)
         {
-            var fileExtension = Path.GetExtension(file.FileName);
-            if (fileExtension.Equals(".JPG") || fileExtension.Equals(".PNG") || fileExtension.Equals(".png") || fileExtension.Equals(".jpg"))
+            var fileExtension = Path.GetExtension(file.FileName);            
+            if (fileExtension.Equals(".JPG", StringComparison.CurrentCultureIgnoreCase) || fileExtension.Equals(".PNG", StringComparison.CurrentCultureIgnoreCase))
             {
                 var saveImage = Path.Combine(_webHostEnvironment.WebRootPath, "images", file.FileName);
                 var stream = new FileStream(saveImage, FileMode.Create);

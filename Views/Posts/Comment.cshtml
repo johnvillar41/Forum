@@ -8,12 +8,14 @@
         </div>
 
         <div class="row">
-            <form method="post" asp-action="SubmitComment" asp-controller="Posts">
-                <input type ="hidden" asp-for="@Model.PostId" />
-                <input type ="hidden" asp-for="@Model.User.Id" />
-                <textarea asp-for="@Model.Reply.ReplyContent" rows="10"></textarea>
-                <input type="submit" class="btn btn-outline-success" value="Submit Comment"/>
-            </form>
+            <div class="card">
+                <form method="post" asp-action="SubmitComment" asp-controller="Posts">
+                    <input type="hidden" asp-for="@Model.PostId" />
+                    <input type="hidden" asp-for="@Model.User.Id" />
+                    <textarea asp-for="@Model.Reply.ReplyContent" class="form-control" rows="10"></textarea>
+                    <input type="submit" class="btn btn-outline-success" value="Submit Comment" />
+                </form>
+            </div>            
         </div>
 
     </div>

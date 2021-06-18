@@ -18,7 +18,10 @@
                     <td>@forum.Title</td>
                     <td>@forum.Description</td>
                     <td><img src="@forum.ImageUrl" style="height:50px;width:50px;" /></td>
-                    <td><a class="btn btn-outline-primary" asp-controller="Forum" asp-action="Posts" asp-route-id="@forum.Id">View Posts</a></td>
+                    <td>
+                        <a class="btn btn-outline-primary" asp-controller="Forum" asp-action="Posts" asp-route-id="@forum.Id">View Posts</a>
+                        <a class="btn btn-outline-danger" asp-controller="Forum" asp-action="RemoveForum" asp-route-id="@forum.Id">Remove Forum</a>
+                    </td>
                 </tr>
 
             </tbody>
