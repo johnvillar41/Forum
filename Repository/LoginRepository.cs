@@ -45,5 +45,25 @@ namespace Forum.Repository
             }
             return null;
         }
+        public async Task<UserModel> FetchLoggedInUser(string username)
+        {
+            using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("ForumDBConnection"));
+            await connection.OpenAsync();
+            var queryString = "SELECT * FROM UserTable WHERE Username=@username";
+            using SqlCommand command = new SqlCommand(queryString, connection);
+            command.Parameters.AddWithValue("@username", username);
+            using SqlDataReader reader = await command.ExecuteReaderAsync();
+            if(await reader.ReadAsync())
+            {
+                return new UserModel
+                {
+                    Id = int.Parse(reader["UserId"].ToString()),
+                    Username = reader["Username"].ToString(),
+                    Fullname = reader["Fullname"].ToString(),
+                    ImageUrl = reader["ImageUrl"].ToString()
+                };
+            }
+            return null;
+        }
     }
 }

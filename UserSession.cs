@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Forum
+﻿namespace Forum
 {
     public class UserSession
     {

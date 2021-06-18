@@ -37,7 +37,7 @@ namespace Forum.Controllers
                 {
                     PostId = postId,
                     ForumId = newPost.ForumId,
-                    UserId = 1 //TODO HARD CODED ID
+                    UserId = newPost.User.Id
                 };
                 await _forumPostRepository.AddNewForumPost(forumPost);
                 return RedirectToAction("Index");

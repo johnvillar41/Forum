@@ -1,17 +1,17 @@
 ﻿@model Forum.ViewModels.PostsViewModel
-<div class="container text-dark">    
+<div class="container text-dark">
     <div class="col-12">
         <div class="row">
             <div class="card mb-2 p-3">
                 <h2><b>Posts on @Model.Forum.Title</b></h2>
                 <h2><b>Forum Id: @Model.Forum.Id</b></h2>
-                <img src="@Model.Forum.ImageUrl" class="img-thumbnail mb-2" style="height:50px;width:50px;">    
+                <img src="@Model.Forum.ImageUrl" class="img-thumbnail mb-2" style="height:50px;width:50px;">
                 <a asp-controller="Posts" asp-action="Index" class="btn btn-outline-success" asp-route-id="@Model.ForumId">Create new post</a>
             </div>
         </div>
-      
+
         <div class="row">
-            
+
             @foreach (var post in Model.Posts)
             {
                 <div class="card mb-3">
@@ -28,9 +28,16 @@
                             <h1>No Comments Found!</h1>
                             return;
                         }
-                        <a class="btn btn-primary mb-2" data-toggle="collapse" href="#collapseExample_@post.Post.Id" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            View Comments
-                        </a>
+                        <div class="row">
+                            <div class="col-1">
+                                <a class="btn btn-primary mb-2" data-toggle="collapse" href="#collapseExample_@post.Post.Id" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    View Comments
+                                </a>
+                            </div>
+                            <div class="col-1">
+                                <a class="btn btn-outline-success" asp-action="Comment" asp-controller="Forum" asp-route-id="@post.Post.Id">Comment</a>
+                            </div>
+                        </div>
                         <div class="collapse" id="collapseExample_@post.Post.Id">
                             <div class="card card-body">
                                 <p>Total number of Comments: @post.Post.PostReplies.Count()</p>

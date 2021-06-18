@@ -10,5 +10,6 @@ namespace Forum.Interface
     {
         Task<bool> CheckIfLoggedInUserExist(UserModel user);
         Task<UserType?> CheckIfUserIdAdmin(string username);
+        Task<UserModel> FetchLoggedInUser(string username);
     }
 }
