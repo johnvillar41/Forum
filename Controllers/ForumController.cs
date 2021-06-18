@@ -14,12 +14,15 @@ namespace Forum.Controllers
     {
         private readonly IForum _forumRepository;
         private readonly IPost _postRepository;
+
+        private readonly ILogin _loginRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public ForumController(IForum forumRepository, IPost postRepository, IWebHostEnvironment webHostEnvironment)
+        public ForumController(IForum forumRepository, IPost postRepository, IWebHostEnvironment webHostEnvironment, ILogin loginRepository)
         {
             _forumRepository = forumRepository;
             _postRepository = postRepository;
             _webHostEnvironment = webHostEnvironment;
+            _loginRepository = loginRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -41,6 +44,17 @@ namespace Forum.Controllers
         public IActionResult CreateForum()
         {
             return View();
+        }
+        public async Task<IActionResult> Comment(int id)
+        {
+            var username = Request.Cookies["username"];
+            var user = await _loginRepository.FetchLoggedInUser(username);
+            var replyViewModel = new ReplyViewModel
+            {
+                PostId = id,
+                User = user
+            };           
+            return View(replyViewModel);
         }
         public async Task<IActionResult> SubmitForum(ForumModel newForum)
         {

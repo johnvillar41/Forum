@@ -2,6 +2,7 @@
 using Forum.Interface;
 using Forum.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Forum.Controllers
@@ -11,11 +12,13 @@ namespace Forum.Controllers
         private readonly IPost _postRepository;
         private readonly IForumPost _forumPostRepository;
         private readonly ILogin _loginRepository;
-        public PostsController(IPost postRepository, IForumPost forumPostRepository, ILogin loginRepository)
+        private readonly IReply _replyRepository;
+        public PostsController(IPost postRepository, IForumPost forumPostRepository, ILogin loginRepository, IReply replyRepository)
         {
             _postRepository = postRepository;
             _forumPostRepository = forumPostRepository;
             _loginRepository = loginRepository;
+            _replyRepository = replyRepository;
         }
         public IActionResult Index(int id)
         {
@@ -41,9 +44,15 @@ namespace Forum.Controllers
                     UserId = userLoggedIn.Id
                 };
                 await _forumPostRepository.AddNewForumPost(forumPost);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Forum");
             }
             return View();
+        }
+        public async Task<IActionResult> SubmitComment(ReplyViewModel replyViewModel)
+        {
+            replyViewModel.Reply.DateCreated = DateTime.Now;
+            await _replyRepository.CreateReply(replyViewModel);
+            return RedirectToAction("Index","Forum");
         }
     }
 }
