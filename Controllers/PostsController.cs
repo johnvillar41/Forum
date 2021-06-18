@@ -2,9 +2,6 @@
 using Forum.Interface;
 using Forum.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Forum.Controllers
@@ -13,17 +10,19 @@ namespace Forum.Controllers
     {
         private readonly IPost _postRepository;
         private readonly IForumPost _forumPostRepository;
-        public PostsController(IPost postRepository, IForumPost forumPostRepository)
+        private readonly ILogin _loginRepository;
+        public PostsController(IPost postRepository, IForumPost forumPostRepository, ILogin loginRepository)
         {
             _postRepository = postRepository;
             _forumPostRepository = forumPostRepository;
+            _loginRepository = loginRepository;
         }
         public IActionResult Index(int id)
-        {                       
+        {
             var postCreateViewModel = new PostCreateViewModel
             {
                 ForumId = id,
-                User = null                
+                User = null
             };
             return View(postCreateViewModel);
         }
@@ -33,11 +32,13 @@ namespace Forum.Controllers
             if (newPost != null)
             {
                 var postId = await _postRepository.CreateNewPost(newPost);
+                var usernameLoggedIn = Request.Cookies["username"];
+                var userLoggedIn = await _loginRepository.FetchLoggedInUser(usernameLoggedIn);
                 var forumPost = new ForumPostModel
                 {
                     PostId = postId,
                     ForumId = newPost.ForumId,
-                    UserId = newPost.User.Id
+                    UserId = userLoggedIn.Id
                 };
                 await _forumPostRepository.AddNewForumPost(forumPost);
                 return RedirectToAction("Index");

@@ -29,15 +29,8 @@ namespace Forum.Controllers
                 var isLoginValid = await _loginRepository.CheckIfLoggedInUserExist(loginUser);
                 if (isLoginValid)
                 {
-                    var isAdmin = await _loginRepository.CheckIfUserIdAdmin(loginUser.Username);
-                    if (isAdmin.Equals(nameof(UserType.Administrator)))
-                    {
-                        SetCookie(loginUser.Username, UserType.Administrator.ToString());
-                    }
-                    if (isAdmin.Equals(nameof(UserType.User)))
-                    {
-                        SetCookie(loginUser.Username, UserType.User.ToString());
-                    }
+                    //var isAdmin = await _loginRepository.CheckIfUserIdAdmin(loginUser.Username);                    
+                    SetCookie("username", loginUser.Username);                   
                     return RedirectToAction("Index","Forum");
                 }
             }
