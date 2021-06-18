@@ -361,4 +361,4 @@ C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Forum.csprojAssembly
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Posts\Index.cshtml.g.cs
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Forum\CreateForum.cshtml.g.cs
 C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Forum\Posts.cshtml.g.cs
-C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Forum\Comment.cshtml.g.cs
+C:\Users\Villar\Desktop\Forum\Forum\obj\Debug\netcoreapp3.1\Razor\Views\Posts\Comment.cshtml.g.cs

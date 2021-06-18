@@ -48,6 +48,17 @@ namespace Forum.Controllers
             }
             return View();
         }
+        public async Task<IActionResult> Comment(int id)
+        {
+            var username = Request.Cookies["username"];
+            var user = await _loginRepository.FetchLoggedInUser(username);
+            var replyViewModel = new ReplyViewModel
+            {
+                PostId = id,
+                User = user
+            };
+            return View(replyViewModel);
+        }
         public async Task<IActionResult> SubmitComment(ReplyViewModel replyViewModel)
         {
             replyViewModel.Reply.DateCreated = DateTime.Now;
