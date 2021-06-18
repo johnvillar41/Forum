@@ -9,11 +9,11 @@ namespace Forum.Controllers
 {
     public class PostsController : Controller
     {
-        private readonly IPost _postRepository;
-        private readonly IForumPost _forumPostRepository;
-        private readonly ILogin _loginRepository;
-        private readonly IReply _replyRepository;
-        public PostsController(IPost postRepository, IForumPost forumPostRepository, ILogin loginRepository, IReply replyRepository)
+        private readonly IPostRepository _postRepository;
+        private readonly IForumPostRepository _forumPostRepository;
+        private readonly ILoginRepository _loginRepository;
+        private readonly IReplyRepository _replyRepository;
+        public PostsController(IPostRepository postRepository, IForumPostRepository forumPostRepository, ILoginRepository loginRepository, IReplyRepository replyRepository)
         {
             _postRepository = postRepository;
             _forumPostRepository = forumPostRepository;

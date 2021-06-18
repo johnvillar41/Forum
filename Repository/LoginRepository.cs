@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Repository
 {
-    public class LoginRepository : ILogin
+    public class LoginRepository : ILoginRepository
     {
         private readonly IConfiguration _configuration;
         public LoginRepository(IConfiguration configuration)

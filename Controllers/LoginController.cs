@@ -11,8 +11,8 @@ namespace Forum.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly ILogin _loginRepository;
-        public LoginController(ILogin loginRepository)
+        private readonly ILoginRepository _loginRepository;
+        public LoginController(ILoginRepository loginRepository)
         {
             _loginRepository = loginRepository;
         }

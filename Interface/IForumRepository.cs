@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Interface
 {
-    public interface IForum
+    public interface IForumRepository
     {
         Task<IEnumerable<ForumModel>> FetchAllForums();       
         Task CreateForum(ForumModel newForum);

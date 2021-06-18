@@ -12,12 +12,12 @@ namespace Forum.Controllers
 {
     public class ForumController : Controller
     {
-        private readonly IForum _forumRepository;
-        private readonly IPost _postRepository;
+        private readonly IForumRepository _forumRepository;
+        private readonly IPostRepository _postRepository;
 
-        private readonly ILogin _loginRepository;
+        private readonly ILoginRepository _loginRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public ForumController(IForum forumRepository, IPost postRepository, IWebHostEnvironment webHostEnvironment, ILogin loginRepository)
+        public ForumController(IForumRepository forumRepository, IPostRepository postRepository, IWebHostEnvironment webHostEnvironment, ILoginRepository loginRepository)
         {
             _forumRepository = forumRepository;
             _postRepository = postRepository;

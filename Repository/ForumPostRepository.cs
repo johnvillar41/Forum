@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Repository
 {
-    public class ForumPostRepository : IForumPost
+    public class ForumPostRepository : IForumPostRepository
     {
         private readonly IConfiguration _configuration;
         public ForumPostRepository(IConfiguration configuration)

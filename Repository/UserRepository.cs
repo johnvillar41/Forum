@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Repository
 {
-    public class UserRepository : IUser
+    public class UserRepository : IUserRepository
     {
         private readonly IConfiguration _configuration;
         public UserRepository(IConfiguration configuration)

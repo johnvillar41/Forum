@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Interface
 {
-    public interface IForumPost
+    public interface IForumPostRepository
     {
         Task AddNewForumPost(ForumPostModel forumPost);
     }

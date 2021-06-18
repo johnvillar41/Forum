@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Interface
 {
-    public interface ILogin
+    public interface ILoginRepository
     {
         Task<bool> CheckIfLoggedInUserExist(UserModel user);
         Task<UserType?> CheckIfUserIdAdmin(string username);

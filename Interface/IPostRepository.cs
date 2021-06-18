@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Interface
 {
-    public interface IPost
+    public interface IPostRepository
     {
         Task<IEnumerable<PostViewModel>> FetchAllPostsInForum(int forumId);
         Task DeletePost(int postId);

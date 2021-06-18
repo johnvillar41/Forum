@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Interface
 {
-    public interface IReply
+    public interface IReplyRepository
     {
         Task CreateReply(ReplyViewModel newReply);
         Task DeleteReply(int replyID);

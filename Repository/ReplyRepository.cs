@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Forum.Repository
 {
-    public class ReplyRepository : IReply
+    public class ReplyRepository : IReplyRepository
     {
         private readonly IConfiguration _configuration;
-        private readonly IUser _userRepository;       
-        public ReplyRepository(IConfiguration configuration,IUser userRepository)
+        private readonly IUserRepository _userRepository;       
+        public ReplyRepository(IConfiguration configuration,IUserRepository userRepository)
         {
             _userRepository = userRepository;
             _configuration = configuration;           

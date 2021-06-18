@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Interface
 {
-    public interface IUser
+    public interface IUserRepository
     {
         Task<IEnumerable<UserModel>> FetchAllUsers();
         Task ModifyUser(int userId, UserModel updatedUser);

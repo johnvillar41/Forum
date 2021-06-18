@@ -26,12 +26,12 @@ namespace Forum
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IForum, ForumRepository>();
-            services.AddSingleton<IPost, PostRepository>();
-            services.AddSingleton<IUser, UserRepository>();
-            services.AddSingleton<ILogin, LoginRepository>();
-            services.AddSingleton<IReply, ReplyRepository>();
-            services.AddSingleton<IForumPost, ForumPostRepository>();
+            services.AddSingleton<IForumRepository, ForumRepository>();
+            services.AddSingleton<IPostRepository, PostRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<ILoginRepository, LoginRepository>();
+            services.AddSingleton<IReplyRepository, ReplyRepository>();
+            services.AddSingleton<IForumPostRepository, ForumPostRepository>();
             services.AddSingleton<IConfiguration>(Configuration);
         }
 
