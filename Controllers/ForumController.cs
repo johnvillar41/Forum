@@ -1,6 +1,7 @@
 ﻿using Forum.DataModels;
 using Forum.Interface;
 using Forum.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using System.IO;
 using System.Threading.Tasks;
 
 namespace Forum.Controllers
-{
+{    
     public class ForumController : Controller
     {
         private readonly IForumRepository _forumRepository;

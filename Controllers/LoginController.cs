@@ -29,26 +29,21 @@ namespace Forum.Controllers
                 var isLoginValid = await _loginRepository.CheckIfLoggedInUserExist(loginUser);
                 if (isLoginValid)
                 {
-                    //var isAdmin = await _loginRepository.CheckIfUserIdAdmin(loginUser.Username);                    
-                    SetCookie("username", loginUser.Username);                   
-                    return RedirectToAction("Index","Forum");
+                    var isAdmin = await _loginRepository.CheckIfUserIdAdmin(loginUser.Username);
+                    if (isAdmin.Equals(nameof(UserType.Administrator)))
+                        Cookie.SingleInstance.AppendCookie(loginUser.Username, nameof(UserType.Administrator));
+                    if (isAdmin.Equals(nameof(UserType.User)))
+                        Cookie.SingleInstance.AppendCookie(loginUser.Username, nameof(UserType.User));
+
+                    return RedirectToAction("Index", "Forum");
                 }
             }
             return RedirectToAction("Index");
         }
         public IActionResult Logout(string username)
         {
-            RemoveCookie(username);
+            Cookie.SingleInstance.RemoveCookie(username);
             return RedirectToAction("Login");
-        }
-        private void SetCookie(string key,string value)
-        {
-            CookieOptions option = new CookieOptions();           
-            Response.Cookies.Append(key, value, option);
-        }
-        private void RemoveCookie(string key)
-        {
-            Response.Cookies.Delete(key);
         }
     }
 }
