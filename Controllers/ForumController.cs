@@ -10,7 +10,7 @@ using System.IO;
 using System.Threading.Tasks;
 
 namespace Forum.Controllers
-{    
+{
     public class ForumController : Controller
     {
         private readonly IForumRepository _forumRepository;
@@ -27,6 +27,11 @@ namespace Forum.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            var isCookieValidated = ValidateCookie();
+            if (!isCookieValidated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var forums = await _forumRepository.FetchAllForums();
             return View(forums);
         }
@@ -45,7 +50,7 @@ namespace Forum.Controllers
         public IActionResult CreateForum()
         {
             return View();
-        }        
+        }
         public async Task<IActionResult> SubmitForum(ForumModel newForum)
         {
             if (newForum != null)
@@ -57,7 +62,7 @@ namespace Forum.Controllers
                 return RedirectToAction("Index");
             }
             return View();
-        }        
+        }
         public async Task<IActionResult> RemoveForum(int id)
         {
             await _forumRepository.DeleteForum(id);
@@ -65,13 +70,25 @@ namespace Forum.Controllers
         }
         private async void SaveImage(IFormFile file)
         {
-            var fileExtension = Path.GetExtension(file.FileName);            
+            var fileExtension = Path.GetExtension(file.FileName);
             if (fileExtension.Equals(".JPG", StringComparison.CurrentCultureIgnoreCase) || fileExtension.Equals(".PNG", StringComparison.CurrentCultureIgnoreCase))
             {
                 var saveImage = Path.Combine(_webHostEnvironment.WebRootPath, "images", file.FileName);
                 var stream = new FileStream(saveImage, FileMode.Create);
                 await file.CopyToAsync(stream);
             }
+        }
+        private bool ValidateCookie()
+        {
+            var cookieUsername = HttpContext.Request.Cookies["Username"];
+            var cookieUserType = HttpContext.Request.Cookies["UserInfo"];
+            if (cookieUsername == null || cookieUserType == null ||
+                HttpContext.Request.Cookies.ContainsKey(cookieUsername) ||
+                HttpContext.Request.Cookies.ContainsKey(cookieUserType))
+            {
+                return false;               
+            }
+            return true;
         }
     }
 }

@@ -38,10 +38,15 @@ namespace Forum.Repository
             using SqlDataReader reader = await command.ExecuteReaderAsync();
             if(await reader.ReadAsync())
             {
-                if (reader["UserType"].Equals(nameof(UserType.Administrator)))
-                    return UserType.Administrator;
-                if (reader["UserType"].Equals(nameof(UserType.User)))
-                    return UserType.User;
+                var userType = reader["UserType"].ToString();
+                userType.Replace(" ", string.Empty);
+                switch (userType)
+                {
+                    case nameof(UserType.Admin):
+                        return UserType.Admin;
+                    case nameof(UserType.User):
+                        return UserType.User;
+                }                
             }
             return null;
         }

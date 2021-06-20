@@ -30,10 +30,16 @@ namespace Forum.Controllers
                 if (isLoginValid)
                 {
                     var isAdmin = await _loginRepository.CheckIfUserIdAdmin(loginUser.Username);
-                    if (isAdmin.Equals(nameof(UserType.Administrator)))
-                        Cookie.SingleInstance.AppendCookie(loginUser.Username, nameof(UserType.Administrator));
-                    if (isAdmin.Equals(nameof(UserType.User)))
-                        Cookie.SingleInstance.AppendCookie(loginUser.Username, nameof(UserType.User));
+                    if (isAdmin.Equals(UserType.Admin))
+                    {                       
+                        AppendCookies("UserInfo", nameof(UserType.Admin));
+                        AppendCookies("Username", loginUser.Username);
+                    }                        
+                    if (isAdmin.Equals(UserType.User))
+                    {
+                        AppendCookies("UserInfo", nameof(UserType.User));
+                        AppendCookies("Username", loginUser.Username);
+                    }                      
 
                     return RedirectToAction("Index", "Forum");
                 }
@@ -42,8 +48,16 @@ namespace Forum.Controllers
         }
         public IActionResult Logout(string username)
         {
-            Cookie.SingleInstance.RemoveCookie(username);
+            HttpContext.Response.Cookies.Delete(username);
             return RedirectToAction("Login");
+        }
+        private void AppendCookies(string key,string value)
+        {
+            CookieOptions options = new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(6)
+            };
+            Response.Cookies.Append(key, value, options);
         }
     }
 }

@@ -69,8 +69,8 @@ namespace Forum.Repository
                         PostReplies = await _replyRepository.FetchAllRepliesInAPost(int.Parse(reader["PostId"].ToString()))
                     },                    
                 };
-                if (reader["UserType"].ToString().Equals(nameof(UserType.Administrator)))
-                    post.UserType = UserType.Administrator;
+                if (reader["UserType"].ToString().Equals(nameof(UserType.Admin)))
+                    post.UserType = UserType.Admin;
                 if (reader["UserType"].ToString().Equals(nameof(UserType.User)))
                     post.UserType = UserType.User;                
                 posts.Add(post);

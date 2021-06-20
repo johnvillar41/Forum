@@ -38,8 +38,8 @@ namespace Forum.Repository
                     ImageUrl = reader["ImageUrl"].ToString()
                 };
                 var userType = reader["UserType"].ToString();
-                if (userType.Equals(nameof(UserType.Administrator)))                
-                    user.UserType = UserType.Administrator;
+                if (userType.Equals(nameof(UserType.Admin)))                
+                    user.UserType = UserType.Admin;
                 if (userType.Equals(nameof(UserType.User)))
                     user.UserType = UserType.User;
             }
