@@ -37,6 +37,11 @@ namespace Forum.Controllers
         }
         public async Task<IActionResult> Posts(int id)
         {
+            var isCookieValidated = ValidateCookie();
+            if (!isCookieValidated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var posts = await _postRepository.FetchAllPostsInForum(id);
             var forum = await _forumRepository.FetchForum(id);
             PostsViewModel postsViewModel = new PostsViewModel
@@ -49,10 +54,20 @@ namespace Forum.Controllers
         }
         public IActionResult CreateForum()
         {
+            var isCookieValidated = ValidateCookie();
+            if (!isCookieValidated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
         public async Task<IActionResult> SubmitForum(ForumModel newForum)
         {
+            var isCookieValidated = ValidateCookie();
+            if (!isCookieValidated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (newForum != null)
             {
                 newForum.DateCreated = DateTime.Now;
@@ -65,6 +80,11 @@ namespace Forum.Controllers
         }
         public async Task<IActionResult> RemoveForum(int id)
         {
+            var isCookieValidated = ValidateCookie();
+            if (!isCookieValidated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             await _forumRepository.DeleteForum(id);
             return RedirectToAction("Index");
         }

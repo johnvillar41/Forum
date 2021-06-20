@@ -22,6 +22,11 @@ namespace Forum.Controllers
         }
         public IActionResult Index(int id)
         {
+            var isCookieValidated = ValidateCookie();
+            if (!isCookieValidated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var postCreateViewModel = new PostCreateViewModel
             {
                 ForumId = id,
@@ -32,6 +37,11 @@ namespace Forum.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePost(PostCreateViewModel newPost)
         {
+            var isCookieValidated = ValidateCookie();
+            if (!isCookieValidated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (newPost != null)
             {
                 var postId = await _postRepository.CreateNewPost(newPost);
@@ -50,6 +60,11 @@ namespace Forum.Controllers
         }
         public async Task<IActionResult> Comment(int id)
         {
+            var isCookieValidated = ValidateCookie();
+            if (!isCookieValidated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var username = Request.Cookies["username"];
             var user = await _loginRepository.FetchLoggedInUser(username);
             var replyViewModel = new ReplyViewModel
@@ -61,9 +76,26 @@ namespace Forum.Controllers
         }
         public async Task<IActionResult> SubmitComment(ReplyViewModel replyViewModel)
         {
+            var isCookieValidated = ValidateCookie();
+            if (!isCookieValidated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             replyViewModel.Reply.DateCreated = DateTime.Now;
             await _replyRepository.CreateReply(replyViewModel);
             return RedirectToAction("Index","Forum");
+        }
+        private bool ValidateCookie()
+        {
+            var cookieUsername = HttpContext.Request.Cookies["Username"];
+            var cookieUserType = HttpContext.Request.Cookies["UserInfo"];
+            if (cookieUsername == null || cookieUserType == null ||
+                HttpContext.Request.Cookies.ContainsKey(cookieUsername) ||
+                HttpContext.Request.Cookies.ContainsKey(cookieUserType))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
